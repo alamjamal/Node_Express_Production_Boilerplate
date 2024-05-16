@@ -1,0 +1,80 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    # strategy:
+    #   matrix:
+    #     node-version: [20.x]
+    #     # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    # steps:
+    # - uses: actions/checkout@v4
+    # - name: Use Node.js ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use system Node.js
+      run: |
+        node -v
+        npm -v
+
+   # - run:  cp -r . /home/meityp/backend_copy/
+    - run: npm ci
+    - run: npm run build --if-present
+    - name: Create .env file
+      run: |
+        echo "NODE_ENV=production" >> .env
+        echo "NODE_PORT=${{ secrets.NODE_PORT }}" >> .env
+        echo "CLIENT_URL=${{ secrets.CLIENT_URL }}" >> .env
+        echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
+        echo "TOKEN_SECRET=${{ secrets.TOKEN_SECRET }}" >> .env
+        echo "MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }}" >> .env
+        echo "MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }}" >> .env
+        echo "ACTIVATE_ACCOUNT_URL=${{ secrets.ACTIVATE_ACCOUNT_URL }}" >> .env
+        echo "CHANGE_PASSWORD_URL=${{ secrets.CHANGE_PASSWORD_URL }}" >> .env
+        echo "MAIL_HOST=${{ secrets.MAIL_HOST }}" >> .env
+        echo "MAIL_PORT=${{ secrets.MAIL_PORT }}" >> .env
+        echo "MAIL_SECURE=${{ secrets.MAIL_SECURE }}" >> .env
+        echo "MAIL_USER_NAME=${{ secrets.MAIL_USER_NAME }}" >> .env
+        echo "MAIL_PASS=${{ secrets.MAIL_PASS }}" >> .env
+        echo "MAIL_FROM_EMAIL=${{ secrets.MAIL_FROM_EMAIL }}" >> .env
+        echo "ACCESS_LOG_DIR=${{ secrets.ACCESS_LOG_DIR }}" >> .env
+        echo "ERROR_LOG_DIR=${{ secrets.ERROR_LOG_DIR }}" >> .env
+        echo "DB_DIRECTORY=${{ secrets.DB_DIRECTORY }}" >> .env
+        echo "TMP_DIRECTORY=${{ secrets.TMP_DIRECTORY }}" >> .env
+        echo "UPLOAD_DIRECTORY_COMMON=${{ secrets.UPLOAD_DIRECTORY_COMMON }}" >> .env
+        echo "UPLOAD_DIRECTORY_IMAGE=${{ secrets.UPLOAD_DIRECTORY_IMAGE }}" >> .env
+        echo "UPLOAD_DIRECTORY_VIDEO=${{ secrets.UPLOAD_DIRECTORY_VIDEO }}" >> .env
+        echo "UPLOAD_DIRECTORY_DOC=${{ secrets.UPLOAD_DIRECTORY_DOC }}" >> .env
+        echo "SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> .env
+        # Handle multiline secrets
+        echo "ACCESS_TOKEN_PRIVATE_KEY=\"${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}\"" >> .env
+        echo "ACCESS_TOKEN_PUBLIC_KEY=\"${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}\"" >> .env
+        echo "REFRESH_TOKEN_PRIVATE_KEY=\"${{ secrets.REFRESH_TOKEN_PRIVATE_KEY }}\"" >> .env
+        echo "REFRESH_TOKEN_PUBLIC_KEY=\"${{ secrets.REFRESH_TOKEN_PUBLIC_KEY }}\"" >> .env
+
+    - name: Restart application with PM2
+      run: pm2 restart server.js --update-env
+
+    - name: Wait for the server to use the environment variables
+      run: sleep 10  # Wait for 10 seconds
+
+    - name: Delete .env file
+      run: rm .env

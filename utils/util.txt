@@ -1,0 +1,18 @@
+//promisify file 
+const fs = require("fs");
+const util = require('util')
+const readdir = util.promisify(fs.readdir);
+const unlink = util.promisify(fs.unlink);
+const stat = util.promisify(fs.stat);
+const lstat = util.promisify(fs.lstat);
+const rm = util.promisify(fs.rm);
+const rmdir = util.promisify(fs.rmdir);
+const readFile = util.promisify(fs.readFile);
+
+const publicKey = await readFile(path.join(__dirname, "../../utils/refresh.pub"), "utf-8");
+
+generate key
+openssl genpkey -algorithm RSA -out access_key.key -pkeyopt rsa_keygen_bits:1024
+openssl rsa -pubout -in access_key.key -outform PEM -out access_key.pub
+
+
