@@ -17,29 +17,25 @@ app.use(cookieParser())
 
 
 if (process.env.NODE_ENV === "production") {
-	const corsSetup = require("./src/_helpers/appOptions/corsOptions");
+	//setup cors
+	const corsSetup = require("./www/appOptions/corsOptions");
 	app.use(corsSetup);
 
 	// set security HTTP headers
-	const helmetSetup = require("./src/_helpers/appOptions/helmetOption");
+	const helmetSetup = require("./www/appOptions/helmetOption");
 	app.use(helmetSetup);
 
 	//enable compression
-
-	const compressionSetup = require('./src/_helpers/appOptions/compressionOption')
+	const compressionSetup = require('./www/appOptions/compressionOption')
 	app.use(compressionSetup);
 
-
-	//log request handler
-	const { morgonLogger } = require("./src/_helpers/logger/morgonLogger");
-	app.use(morgonLogger)
-
 	//rate the limit 
-	const rateLimiterSetup = require("./src/_helpers/appOptions/rateLimitOption");
+	const rateLimiterSetup = require("./www/appOptions/rateLimitOption");
 	app.use(rateLimiterSetup);
 
 
-	const { initSentry } = require('./initServer/initSentry')
+	//setup sentry
+	const { initSentry } = require('./www/initServer/initSentry')
 	initSentry(app);
 	app.use(Sentry.Handlers.requestHandler());
 	app.use(Sentry.Handlers.tracingHandler());
@@ -47,7 +43,12 @@ if (process.env.NODE_ENV === "production") {
 
 }
 
-const {setupAllRoutes }  = require('./routes/index')
+//log request handler
+const { morgonLogger } = require("./www/logger/morgonLogger");
+app.use(morgonLogger)
+
+//setup routes
+const { setupAllRoutes } = require('./routes/index')
 setupAllRoutes(app)
 
 
@@ -57,11 +58,11 @@ app.use(Sentry.Handlers.errorHandler());
 
 
 //response error handler
-const { errorHandlerResponser } = require("./src/_helpers/errorHandler/errorHandler");
+const { errorHandlerResponser } = require("./www/errorHandler/errorHandler");
 app.use(errorHandlerResponser);
 
 //log error handler
-const { logErrorResponses } = require("./src/_helpers/logger/winstonLogger");
+const { logErrorResponses } = require("./www/logger/winstonLogger");
 app.use(logErrorResponses);
 
 

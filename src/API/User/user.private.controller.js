@@ -1,6 +1,6 @@
 const { User } = require("./user.model");
 const { updateValidateUser} = require("./user.validate");
-const { ApiError } = require('../../_helpers/errorHandler/apiError')
+const { ApiError } = require('../../_helpers/apiError')
 const httpStatus = require('http-status')
 const sendResponse = require('../../_helpers/apiResponser')
 

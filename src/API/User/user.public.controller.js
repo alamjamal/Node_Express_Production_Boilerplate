@@ -9,11 +9,11 @@ const sendMail = require("../../_helpers/mail");
 const { generateAccessToken, generateRefreshToken, verifyToken } = require("../../_helpers/jwtHelper");
 const crypto = require("crypto");
 const fs = require("fs");
-const { ApiError } = require('../../_helpers/errorHandler/apiError')
+const { ApiError } = require('../../_helpers/apiError')
 const httpStatus = require('http-status')
 const sendResponse = require('../../_helpers/apiResponser')
 const { calculateRemainingMS } = require('../../_helpers/commonFn')
-const {directoryPath} = require('../../../initServer/initDirectory')
+const {directoryPath} = require('../../../www/initServer/initDirectory')
 async function register(req, res) {
 	let { email, password } = req.body;
 	let user = await User.findOne({ email: email });

@@ -3,7 +3,7 @@ const rfs = require('rotating-file-stream');
 const path = require('path');
 const { format } = require('date-fns');
 const os = require('os');
-const {directoryPath} = require("../../../initServer/initDirectory");
+const {directoryPath} = require("../initServer/initDirectory");
 
 // Create a stream with rotating-file-stream
 const accessLogStream = rfs.createStream('access.log', {

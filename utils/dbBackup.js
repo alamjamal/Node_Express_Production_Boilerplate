@@ -1,8 +1,8 @@
 const runScript = require("./run.script");
 // const { listCollections } = require("../../initServer/initDB"); // Make sure this path is correct
-const {directoryPath} = require('../initServer/initDirectory')
+const {directoryPath} = require('../www/initServer/initDirectory')
 const fs = require("fs");
-const {systemLogger} = require('../initServer/initSysLogger')
+const {systemLogger} = require('../www/initServer/initSysLogger')
 
 async function mongoBackup(listCollections) {
 	try {

@@ -1,6 +1,6 @@
 {
     "name": "Node_Express_Production_Boilerplate",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Node_Express_Production_Boilerplate",
     "main": "server.js",
     "author": "alam jamal",

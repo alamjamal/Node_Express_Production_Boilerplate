@@ -1,4 +1,4 @@
-const { ApiError } = require("../_helpers/errorHandler/apiError");
+const { ApiError } = require("../_helpers/apiError");
 const httpStatus = require('http-status')
 const fs = require('fs').promises
 const Validator = (schema,validateParams=false) => (req, res, next) => {

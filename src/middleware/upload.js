@@ -1,8 +1,8 @@
 const multer = require("multer");
 const path = require("path");
-const {ApiError} = require('../_helpers/errorHandler/apiError')
+const {ApiError} = require('../_helpers/apiError')
 const httpStatus  = require('http-status')
-const {directoryPath} = require('../../initServer/initDirectory')
+const {directoryPath} = require('../../www/initServer/initDirectory')
 const storage = multer.diskStorage({
 	destination: function(req, file, cb) {
 		const filesDir = directoryPath.UPLOAD_DIRECTORY_IMAGE;

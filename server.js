@@ -16,10 +16,10 @@ if (fs.existsSync(envFilePath)) {
 
 
 const { mongoBackup } = require("./utils/dbBackup");
-const { dbConnect, closeDB , listCollections} = require("./initServer/initDB");
-const { redisConnect, redisClient } = require("./initServer/initRedis");
-const {createDirectory} = require('./initServer/initDirectory')
-const {systemLogger} = require('./initServer/initSysLogger')
+const { dbConnect, closeDB , listCollections} = require("./www/initServer/initDB");
+const { redisConnect, redisClient } = require("./www/initServer/initRedis");
+const {createDirectory} = require('./www/initServer/initDirectory')
+const {systemLogger} = require('./www/initServer/initSysLogger')
 
 // */5 * * * * *
 // 0 0 * * *
@@ -55,7 +55,7 @@ let server
     await createDirectory()
     await redisConnect()
     const collections = await dbConnect()
-    // await mongoBackup(collections)
+    await mongoBackup(collections)
     const app = require("./app");
     server = app.listen(process.env.NODE_PORT)
     server.on("listening", () => {

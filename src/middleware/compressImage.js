@@ -1,7 +1,7 @@
 
 const sharp = require("sharp");
 const { promisify } = require("util");
-const {ApiError} = require('../_helpers/errorHandler/apiError')
+const {ApiError} = require('../_helpers/apiError')
 const httpStatus = require('http-status');
 const fs = require("fs");
 const path = require("path");

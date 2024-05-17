@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const winston = require("winston");
 const { createLogger, format } = require("winston");
 const fs = require("fs");
-const {directoryPath} = require("../../../initServer/initDirectory");
+const {directoryPath} = require("../initServer/initDirectory");
 const rfs = require("rotating-file-stream");
 
 

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { UserToken } = require("../API/User/user.model");
 
 
-const {ApiError} = require('../_helpers/errorHandler/apiError')
+const {ApiError} = require('./apiError')
 const httpStatus  = require('http-status')
 
 

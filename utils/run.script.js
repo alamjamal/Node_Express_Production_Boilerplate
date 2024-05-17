@@ -1,5 +1,5 @@
 const { spawn } = require("child_process");
-const {systemLogger} = require('../initServer/initSysLogger')
+const {systemLogger} = require('../www/initServer/initSysLogger')
 
 const runScript = function run_script(command, args) {
 	return new Promise((resolve, reject) => {

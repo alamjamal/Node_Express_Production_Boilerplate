@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { ApiError } = require('../_helpers/errorHandler/apiError')
+const { ApiError } = require('../_helpers/apiError')
 const httpStatus = require('http-status');
 const catchAsync = require("./catchAsync");
 
