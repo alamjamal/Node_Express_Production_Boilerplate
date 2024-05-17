@@ -1,4 +1,4 @@
-const runScript = require("./run.script");
+const runScript = require("./runScript");
 // const { listCollections } = require("../../initServer/initDB"); // Make sure this path is correct
 const {directoryPath} = require('../www/initServer/initDirectory')
 const fs = require("fs");

@@ -52,34 +52,45 @@ Follow these instructions to set up the project on your local machine for develo
 ## Project Structure
 
 ```bash
-.
-├──:file_folder:src
-    ├──_helpers
-        ├──appOptions
-        ├──errorHandler
-        ├──htmlTemplate
-        ├──logger
-    ├── API
-        ├──USER
-            ├──user.controller.private.js
-            ├──user.controller.public.js
-            ├──user.route.private.js
-            ├──user.route.public.js
-            ├──user.model.js
-            ├──user.validate.js
-            ├──user.services.js
-        ├──OtherAPI
-├──initServer
-        ├──initDB.js
-        ├──initDirectory.js
-        ├──initRedis.js
-        ├──initSentry.js
-├──routes
-        ├──fileRoute.js
-        ├──index.js
-        ├──initRoute.js
-        ├──mainRoute.js
-├── utils
+
+├── .github (contains github action yml file)
+├── build (contains build code)
+├── public (contains directory)
+├── routes (contains all src routes )
+        ├── fileRoute.js
+        ├── index.js
+        ├── initRoute.js
+        ├── mainRoute.js
+├──src
+    ├── _helpers
+    ├── API (Here You Can Write all Your API)
+        ├── USER
+            ├── user.controller.private.js
+            ├── user.controller.public.js
+            ├── user.route.private.js
+            ├── user.route.public.js
+            ├── user.model.js
+            ├── user.validate.js
+            ├── user.services.js
+        ├── OtherAPI
+├── utils (having some utility function like dbBackup)
+├── www
+    ├── appOptions
+        ├── compressionOption.js
+        ├── corsOptions.js
+        ├── helmetOption.js
+        ├── rateLimitOption.js
+    ├── errorHandler
+        ├── errorHandler.js  
+    ├── initServer
+        ├── initDB.js
+        ├── initDirectory.js
+        ├── initRedis.js
+        ├── initSentry.js
+    ├── logger
+        ├── morgonLogger.js
+        ├── winstonLogger.js
+├── .env
 ├── app.js
 ├── server.js
 ├── .eslintignore
@@ -88,5 +99,103 @@ Follow these instructions to set up the project on your local machine for develo
 ├── .prettierrc
 ├── jest.config.js
 ├── package.json
-├── pm2.config.js
+├── ecosystem.config.js
 └── README.md
+└── webpack.config.js
+```
+
+## Installation
+
+Follow these steps to set up the project on your local machine:
+
+1. **Clone the repository:**
+
+    ```sh
+    git clone https://github.com/yourusername/nodejs-boilerplate.git
+    cd nodejs-boilerplate
+    ```
+
+2. **Install dependencies:**
+
+    ```sh
+    npm install
+    ```
+
+3. **Set up environment variables:**
+
+    Create a `.env` file in the root directory and add the required environment variables. Refer to the `.env.example` file for the necessary variables.
+
+    Example `.env` file:
+
+    ```env
+    PORT=3000
+    MONGODB_URI=mongodb://localhost:27017/yourdbname
+    JWT_SECRET=your_jwt_secret
+    EMAIL_HOST=smtp.your-email.com
+    EMAIL_PORT=587
+    EMAIL_USER=your-email@example.com
+    EMAIL_PASS=your-email-password
+    ```
+
+4. **Run the MongoDB server:**
+
+    Make sure MongoDB is installed and running on your local machine or use a cloud-hosted MongoDB instance.
+
+5. **Start the application in development mode:**
+
+    ```sh
+    npm run dev
+    ```
+
+6. **Start the application in production mode:**
+
+    ```sh
+    npm start
+    ```
+
+Your Node.js application should now be up and running. Open your browser and navigate to `http://localhost:3000` to see the application in action.
+
+## CI/CD
+
+Automate your development workflow with GitHub Actions for continuous integration and deployment. Below is the configuration for setting up CI/CD for your Node.js application.
+
+### GitHub Actions Configuration
+
+Here is the `.github/workflows/nodejs.yml` file for your application:
+
+```yaml
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+```
+### Explanation
+
+- **Trigger:** The workflow is triggered on every push to the `main` branch.
+- **Job:** The job named `build` runs on a self-hosted runner.
+- **Node.js Setup:** The workflow uses the system Node.js version specified in the matrix (`20.x`).
+- **Steps:**
+  - Checkout the code from the repository.
+  - Verify the Node.js and npm versions.
+  - Install dependencies using `npm ci`.
+  - Build the application (if a build script is present).
+  - Create a `.env` file and populate it with environment variables from GitHub Secrets.
+  - Restart the application using PM2 with the updated environment variables.
+  - Wait for 10 seconds to ensure the server uses the new environment variables.
+  - Delete the `.env` file for security reasons.
+
+### Setting Up GitHub Secrets
+
+To use the secrets in your workflow, you need to add them to your GitHub repository:
+
+1. Go to your repository on GitHub.
+2. Click on `Settings`.
+3. Click on `Secrets` in the left sidebar.
+4. Click on `New repository secret`.
+5. Add all the required secrets (e.g., `NODE_PORT`, `CLIENT_URL`, `MONGODB_URI`, etc.).
+
+## Backup
+
+Ensure the safety and reliability of your MongoDB data by scheduling nightly backups. Below are the steps to set up and manage backups for your MongoDB database.
+
+### MongoDB Backup Configuration
+
+To automate the backup process, you can use a script that performs a dump of your MongoDB database and stores it in a specified directory. You can set this script to run every night using a cron job. like for every night use this  // 0 0 * * *

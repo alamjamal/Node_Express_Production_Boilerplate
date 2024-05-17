@@ -55,7 +55,7 @@ let server
     await createDirectory()
     await redisConnect()
     const collections = await dbConnect()
-    await mongoBackup(collections)
+    // await mongoBackup(collections)
     const app = require("./app");
     server = app.listen(process.env.NODE_PORT)
     server.on("listening", () => {
