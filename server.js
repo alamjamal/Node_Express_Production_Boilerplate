@@ -29,14 +29,14 @@ cron.schedule('0 0 * * *', async () => {
     const collections =  await listCollections()
     await mongoBackup(collections);
   } catch (error) {
-    systemLogger.error("Hi Failed to perform backup:", error);
+    systemLogger.error(`Hi Failed to perform backup: ${error}`);
 
   }
 });
 
 if (process.env.NODE_ENV === "production") {
   process.on("uncaughtException", (err) => {
-    systemLogger.error(`${err.name}: ${err.message}\n${err.stack}`);
+    systemLogger.error(`${err.name} : ${err.message} : ${err.stack}`);
     systemLogger.info("Uncaught Exception occurred! Shutting down...");
     process.exit(0); // clean exit
   });
@@ -94,7 +94,7 @@ let server
 
 
 process.on("unhandledRejection", async (err) => {
-  systemLogger.error(`${err.name}: ${err.message}\n${err.stack}`);
+  systemLogger.error(`${err.name}: ${err.message} : ${err.stack}`);
   systemLogger.info("Unhandled rejection occurred! Shutting down...");
   process.exit(0)
 

@@ -15,7 +15,7 @@ const runScript = function run_script(command, args) {
 
 		child.stderr.setEncoding("utf8");
 		child.stderr.on("data", function (data) {
-			// console.log('stderr: ' + data);
+			// systemLogger.info('stderr: ' + data);
 			data = data.toString();
 			scriptOutput += data;
 		});
@@ -25,7 +25,7 @@ const runScript = function run_script(command, args) {
 		});
 
 		child.on("error", (error) => {
-			systemLogger.error(`Error From Spawn Page: \n${error}`);
+			systemLogger.error(`Error From Spawn Page: ${error}`);
 			reject(error);
 		});
 

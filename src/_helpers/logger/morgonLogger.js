@@ -28,5 +28,5 @@ const morgonLogger = morgan(customFormat, {
 	skip: (req, res) => req.url === "/",
 });
 
-console.log("Morgon Logger Started")
+console.log("Morgon Logger Started...")
 module.exports = { morgonLogger };

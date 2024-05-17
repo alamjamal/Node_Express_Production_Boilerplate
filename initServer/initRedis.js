@@ -26,9 +26,9 @@ const redisConnect = async () => {
 // redisClient.on('ready', () => console.log('Ready to use Redis DB'));
 // redisClient.on('end', () => console.log('Client disconnected from Redis DB'));
 
-(async () => {  redisClient.on('connect', () => console.log('Connected to Redis DB')); })();
-(async () => {  redisClient.on('ready', () => console.log('Ready to use Redis DB')); })();
-(async () => {  redisClient.on('end', () => console.log('Client disconnected from Redis DB')); })();
+(async () => {  redisClient.on('connect', () =>  systemLogger.info('Connected to Redis DB')); })();
+(async () => {  redisClient.on('ready', () =>  systemLogger.info('Ready to use Redis DB')); })();
+(async () => {  redisClient.on('end', () =>  systemLogger.info('Client disconnected from Redis DB')); })();
 
 // process.on('SIGINT', async () => {
 //     await redisClient.disconnect();

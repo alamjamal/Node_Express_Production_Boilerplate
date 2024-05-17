@@ -8,7 +8,7 @@ async function mongoBackup(listCollections) {
 	try {
 		const collections = listCollections// This should return ['users', 'tokens']
 		if (collections.length === 0) return
-		systemLogger.info(`Backing Up Collections => \n${collections}`)
+		systemLogger.info(`Backing Up Collections => ${collections}`)
 		const promises = collections.map(collectionName => {
 			const db = "jamal"; // Database name as a constant
 			const outputPath = `${directoryPath.DB_DIRECTORY}/${collectionName}.json`;
@@ -21,9 +21,9 @@ async function mongoBackup(listCollections) {
 		const results = await Promise.allSettled(promises);
 		results.forEach((result, index) => {
 			if (result.status === 'fulfilled') {
-				systemLogger.info(`✅ Successfully backed up collection: \n${collections[index]}`);
+				systemLogger.info(`✅ Successfully backed up collection: ${collections[index]}`);
 			} else {
-				systemLogger.error(`❌ Error backing up collection: \n${collections[index]}`);
+				systemLogger.error(`❌ Error backing up collection: ${collections[index]}`);
 			}
 		});
 

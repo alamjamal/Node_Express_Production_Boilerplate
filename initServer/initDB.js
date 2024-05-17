@@ -43,10 +43,10 @@ const dbConnect = async () => {
 
 db = mongoose.connection;
 db.on("connected", () => {
-	systemLogger.error("Database Connected  Successfully.");
+	systemLogger.info("Database Connected  Successfully.");
 });
 db.on("open", async () => {
-	systemLogger.error("Database Now Open to Use.");
+	systemLogger.info("Database Now Open to Use.");
 	// collection = await listCollections(); // Ensure this call is correct
 	// console.log("Collections:", collection);
 });
