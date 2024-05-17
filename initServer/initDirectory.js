@@ -12,6 +12,7 @@ const directoryPath = {
      UPLOAD_DIRECTORY_IMAGE : path.join(__dirname, '..',process.env.UPLOAD_DIRECTORY_IMAGE),
      UPLOAD_DIRECTORY_VIDEO : path.join(__dirname, '..',process.env.UPLOAD_DIRECTORY_VIDEO),
      UPLOAD_DIRECTORY_DOC : path.join(__dirname, '..',process.env.UPLOAD_DIRECTORY_DOC),
+     SYSTEM_LOG_DIR:path.join(__dirname, '..',process.env.SYSTEM_LOG_DIR),
 }
 
 const createDirectory = async()=>{
@@ -21,7 +22,7 @@ const createDirectory = async()=>{
             const dir = directoryPath[key];
             try {
                 await fs.access(dir);
-                console.log(`Directory already exists: ${dir}`);
+                
             } catch (error) {
                 try {
                     await fs.mkdir(dir, { recursive: true });

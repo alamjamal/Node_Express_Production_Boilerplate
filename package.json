@@ -1,12 +1,12 @@
 {
-    "name": "backendlms",
+    "name": "Node_Express_Production_Boilerplate",
     "version": "1.0.0",
-    "description": "backendLMS",
-    "main": "index.js",
+    "description": "Node_Express_Production_Boilerplate",
+    "main": "server.js",
     "author": "alam jamal",
     "repository": {
         "type": "git",
-        "url": "https://github.com/manuucsit/backendLMS.git"
+        "url": "https://github.com/alamjamal/Node_Express_Production_Boilerplate"
     },
     "scripts": {
         "start": "node ./server.js",

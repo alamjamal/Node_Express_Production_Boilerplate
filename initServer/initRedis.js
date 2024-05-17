@@ -1,13 +1,14 @@
 const redis = require("redis");
-
+const {systemLogger} = require('./initSysLogger')
 const redisClient = redis.createClient();
 // redisClient.connect();
 
 const redisConnect = async () => {
     try {
         await redisClient.connect();
+        systemLogger.info("Redis Connected Successfully")
     } catch (err) {
-        console.log("error while connecting redis")
+        systemLogger.error("Error While Connecting Redis")
     }
     
 }
