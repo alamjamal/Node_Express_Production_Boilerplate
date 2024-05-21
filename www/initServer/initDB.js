@@ -19,7 +19,7 @@ const connectionOptions = {
 const dbConnect = async () => {
 	try {
 		systemLogger.info("Trying to connect to Atlas MongoDB...");
-		await mongoose.connect(localConnectionString, connectionOptions);
+		await mongoose.connect(atlasConnectionString, connectionOptions);
 		systemLogger.info("Connected to Atlas MongoDB successfully.");
 		const result = await mongoose.connection.db.listCollections().toArray();
 		const arr = result.map((item) => item.name)
@@ -81,7 +81,7 @@ const listCollections = async () => {
 const closeDB = async () => {
 	if (db) {
 		await mongoose.connection.close();
-		systemLogger.infoi("MongoDB Disconnected...");
+		systemLogger.info("MongoDB Disconnected...");
 	} else {
 		systemLogger.info("No Connection to Close...");
 	}

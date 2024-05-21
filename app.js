@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser')
 const Sentry = require("@sentry/node");
-
+const { systemLogger } = require('./www/initServer/initSysLogger')
 
 // app.use(bodyParser.urlencoded({ limit: "5mb", extended: true, parameterLimit: 1000 }))
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,6 +66,6 @@ const { logErrorResponses } = require("./www/logger/winstonLogger");
 app.use(logErrorResponses);
 
 
-console.info("App Started.....")
+systemLogger.info("App Started.....")
 
 module.exports = app;

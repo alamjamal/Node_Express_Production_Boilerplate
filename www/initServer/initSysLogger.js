@@ -1,7 +1,6 @@
 const { createLogger, format } = require("winston");
-const { directoryPath } = require('./initDirectory')
 const winston = require("winston");
-
+const path = require('path')
 
 
 const fileFormat = format.combine(
@@ -28,11 +27,11 @@ const systemLogger = createLogger({
             format: consoleFormat
         }),
         new winston.transports.File({
-            filename: `${directoryPath.SYSTEM_LOG_DIR}/systemLogs.log`,
+            filename: path.join(__dirname, '..', '..', "./.logs/systemLogs.log"),
             format: fileFormat
         })
     ]
 });
 
-systemLogger.info("systemLogger Started....")
+systemLogger.info("2. System Logger Started....")
 module.exports = { systemLogger }

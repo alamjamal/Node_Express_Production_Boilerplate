@@ -8,6 +8,8 @@ module.exports = {
         //watch:false,
         watch: ["server.js"],
         ignore_watch: ["node_modules", "client/img", "\\.git", "*.log"],
+        time: true,
+        log_date_format : "DD-MM-YYYY HH:mm Z",
         watch_options: {
           usePolling: true,
           alwaysStat: true,

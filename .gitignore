@@ -1,7 +1,7 @@
 
 Logs
-public/upload
-uploads
+public/
+uploads/
 tmp
 logs
 *.log
