@@ -91,7 +91,7 @@ let server
     });
 
   } catch (error) {
-    systemLogger.error(error);
+    systemLogger.error(error.stack);
     process.exit(1)
   }
 })()
